@@ -5,7 +5,9 @@ const {
     loginUser,
     getCurrentUser,
     clientTest,
-     freelancerTest
+     freelancerTest,
+     updateProfile,
+     getUserById
 } = require("../controllers/userController");
 
 const {
@@ -21,11 +23,22 @@ router.post("/login", loginUser);
 
 router.get("/me", protect, getCurrentUser);
 
+router.put("/me", protect, updateProfile);
+
 router.get(
     "/freelancer-test",
     protect,
     authorizeRoles("freelancer"),
      freelancerTest
 );
+
+router.get(
+    "/client-test",
+    protect,
+    authorizeRoles("client"),
+    clientTest
+);
+
+router.get("/:id", getUserById);
 
 module.exports = router;
